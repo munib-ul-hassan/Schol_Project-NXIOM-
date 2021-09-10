@@ -7,10 +7,12 @@ const admission = require("../models/admission/AcademisDetails");
 Mongoose.model("admission");
 const student = require("../models/admission/StudentDetails");
 Mongoose.model("student");
+const parent = require("../models/admission/Parents");
+Mongoose.model("parent");
+const transports = require("../models/admission/Transport");
+Mongoose.model("transport");
 
 routes.post("/admission", (req, res) => {
-  console.log(req.body);
-
   var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   if (!re.test(req.body.Student.Email)) {
     res.status(422).send("invlaid Email");
@@ -26,17 +28,31 @@ routes.post("/admission", (req, res) => {
   req.body.Student.DOB = new Date(date[0], date[1], date[2]);
   var data = new admission(req.body.Academy);
   var Student = new student(req.body.Student);
+  var transport = new transports(req.body.Transport);
+  transport.save();
+  console.log(req.body.parent_id);
+  var parent_id;
+  if (req.body.parent._id) {
+    Student.parents = req.body.parent;
+  } else {
+    var parents = new parent(req.body.parent);
+    parents.save();
+    Student.parents = parents._id;
+  }
   data
     .save()
-    .then(
+    .then((academy) => {
+      Student.academy = academy._id;
+
+      Student.transports = transport._id;
       Student.save()
         .then((item) => {
           res.send("Admission Successfull");
         })
         .catch((err) => {
           res.status(400).send("unable to save in database");
-        })
-    )
+        });
+    })
     .catch((err) => {
       res.status(400).send("unable to save in database");
     });

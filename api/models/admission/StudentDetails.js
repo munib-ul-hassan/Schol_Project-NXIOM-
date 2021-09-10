@@ -15,12 +15,29 @@ const Student = mongoose.Schema({
   Present_Address: { type: String },
   Permanent_Address: { type: String },
   Profile_Picture: { type: String },
-  Transport_Route: { type: String },
-  Vehicle_No: { type: Number },
+
   Hostel_Name: { type: String },
   Room_Name: { type: String },
   Institute_Name: { type: String },
   Qualification: { type: String },
   Remarks: { type: String },
+  academy: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "admission",
+    },
+  ],
+  parents: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "parent",
+    },
+  ],
+  transports: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "transport",
+    },
+  ],
 });
 module.exports = mongoose.model("student", Student);
