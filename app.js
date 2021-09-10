@@ -6,8 +6,8 @@ var url =
   "mongodb+srv://hxeon_22:HXEON22@cluster0.5x5xa.mongodb.net/SCHOOL_SYSTEM?retryWrites=true&w=majority";
 var body = require("body-parser");
 app.use(express.json());
-app.use(require("./Modules/Branch"));
-app.use(require("./Modules/admission"));
+app.use(require("./api/routes/Branch"));
+app.use(require("./api/routes/admission"));
 
 //Data Base connection
 mongoose.connect(

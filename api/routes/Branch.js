@@ -5,7 +5,6 @@ const Mongoose = require("mongoose");
 const routes = express.Router();
 const Branch = require("../models/BranchConnection");
 Mongoose.model("Branch");
-const upload = require("../middlewear/ulpload");
 
 routes.post("/createBranch", async (req, res) => {
   var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
