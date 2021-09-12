@@ -3,7 +3,7 @@ const app = express();
 var mongodb = require("mongodb");
 const Mongoose = require("mongoose");
 const routes = express.Router();
-const Branch = require("../models/BranchConnection");
+const Branch = require("../models/Branch_Schema");
 Mongoose.model("Branch");
 
 routes.post("/createBranch", async (req, res) => {
@@ -12,7 +12,7 @@ routes.post("/createBranch", async (req, res) => {
     res.status(422).send("invlaid Email");
   } else {
     var re = /^(\+\d{1,3}[- ]?)?\d{9}$/;
-    if (!re.test(req.body.Mobile_no)) {
+    if (!re.test(req.body.Mobile_No)) {
       res.status(422).send("invlaid Mobile No");
     }
   }
@@ -20,16 +20,19 @@ routes.post("/createBranch", async (req, res) => {
   // if (req.file == undefined) {
   //   return res.send(`You must select a file.`);
   // }
-
+  console.log(req.body);
   var data = new Branch(req.body);
-
+  console.log(data);
   data
     .save()
     .then((item) => {
+      console.log(item);
       res.send("Branch saved in database");
     })
     .catch((err) => {
-      res.status(400).send("unable to save in database");
+      res
+        .status(400)
+        .send({ message: "unable to save in database", Error: err });
     });
 });
 

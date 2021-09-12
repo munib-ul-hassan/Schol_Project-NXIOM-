@@ -7,7 +7,7 @@ const admission = require("../models/admission/AcademisDetails");
 Mongoose.model("admission");
 const student = require("../models/admission/StudentDetails");
 Mongoose.model("student");
-const parent = require("../models/admission/Parents");
+const parent = require("../models/admission/Parent_Schema");
 Mongoose.model("parent");
 const transports = require("../models/admission/Transport");
 Mongoose.model("transport");
