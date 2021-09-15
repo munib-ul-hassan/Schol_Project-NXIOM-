@@ -1,7 +1,12 @@
 const mongoose = require("mongoose");
 
 const Class_Teacher = mongoose.Schema({
-  Teacher_Name: String,
+  Teacher: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Teacher",
+    },
+  ],
   Branch: [
     {
       type: mongoose.Schema.Types.ObjectId,

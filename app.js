@@ -13,6 +13,7 @@ app.use(require("./api/routes/Section"));
 app.use(require("./api/routes/ClassTeacher"));
 app.use(require("./api/routes/Subject"));
 app.use(require("./api/routes/ClassAssign"));
+app.use(require("./api/routes/ClassSchedule"));
 
 //Data Base connection
 mongoose.connect(

@@ -1,17 +1,23 @@
 const mongoose = require("mongoose");
-const Academic = mongoose.Schema({
-  Academic_Year: { type: Number },
-  Register_No: { type: Number },
-  Roll: { type: Number },
-  Admission_Date: { type: Date },
+const Academydetails = mongoose.Schema({
+  Academic_Year: { type: String },
   Branch: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Branch",
     },
   ],
-  Class: { type: Number },
-  Section: { type: String },
-  Department: { type: String },
+  Class: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Class",
+    },
+  ],
+  Section: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Section",
+    },
+  ],
 });
-module.exports = mongoose.model("admission", Academic);
+module.exports = mongoose.model("Academydetails", Academydetails);
