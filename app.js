@@ -14,6 +14,7 @@ app.use(require("./api/routes/ClassTeacher"));
 app.use(require("./api/routes/Subject"));
 app.use(require("./api/routes/ClassAssign"));
 app.use(require("./api/routes/ClassSchedule"));
+app.use(require("./api/routes/event_type"));
 
 //Data Base connection
 mongoose.connect(

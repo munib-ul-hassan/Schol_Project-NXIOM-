@@ -12,7 +12,7 @@ Mongoose.model("parent");
 const transports = require("../models/admission/Transport");
 Mongoose.model("transport");
 
-routes.post("/admission", (req, res) => {
+routes.post("/admission", async (req, res) => {
   var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   if (!re.test(req.body.Student.Email)) {
     res.status(422).send("invlaid Email");
