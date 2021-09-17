@@ -1,6 +1,12 @@
 const mongoose = require("mongoose");
-const Academydetails = mongoose.Schema({
-  Academic_Year: { type: String },
+
+const Class_Teacher = mongoose.Schema({
+  Teacher: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Teacher",
+    },
+  ],
   Branch: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -20,4 +26,4 @@ const Academydetails = mongoose.Schema({
     },
   ],
 });
-module.exports = mongoose.model("Academydetails", Academydetails);
+module.exports = mongoose.model("ClassTeacher", Class_Teacher);

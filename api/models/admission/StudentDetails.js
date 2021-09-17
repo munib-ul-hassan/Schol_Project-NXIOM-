@@ -1,5 +1,9 @@
 const mongoose = require("mongoose");
 const Student = mongoose.Schema({
+  Register_No: { type: Number },
+  Roll: { type: Number },
+  Admission_Date: { type: Date },
+  Department: String,
   F_Name: { type: String },
   L_Name: { type: String },
   gender: { type: String },
@@ -24,7 +28,7 @@ const Student = mongoose.Schema({
   academy: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "admission",
+      ref: "Academydetails",
     },
   ],
   parents: [

@@ -8,6 +8,13 @@ var body = require("body-parser");
 app.use(express.json());
 app.use(require("./api/routes/Branch"));
 app.use(require("./api/routes/admission"));
+app.use(require("./api/routes/Class"));
+app.use(require("./api/routes/Section"));
+app.use(require("./api/routes/ClassTeacher"));
+app.use(require("./api/routes/Subject"));
+app.use(require("./api/routes/ClassAssign"));
+app.use(require("./api/routes/ClassSchedule"));
+app.use(require("./api/routes/event_type"));
 
 //Data Base connection
 mongoose.connect(
