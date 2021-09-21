@@ -16,18 +16,13 @@ routes.post("/createBranch", async (req, res) => {
       res.status(422).send("invlaid Mobile No");
     }
   }
-  // await upload(req, res);
-  // if (req.file == undefined) {
-  //   return res.send(`You must select a file.`);
-  // }
-  console.log(req.body);
+
   var data = new Branch(req.body);
-  console.log(data);
+
   data
     .save()
     .then((item) => {
-      console.log(item);
-      res.send("Branch saved in database");
+      res.status(200).send({ message: "Branch saved in database" });
     })
     .catch((err) => {
       res
@@ -45,7 +40,7 @@ routes.get("/Branch", (req, res) => {
     .skip(skippedItems)
 
     .then((item) => {
-      res.send(item);
+      res.status(200).send(item);
     })
     .catch((err) => {
       res.status(400).send("Data Not found");

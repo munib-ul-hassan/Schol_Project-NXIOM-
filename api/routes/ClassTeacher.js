@@ -10,7 +10,7 @@ routes.post("/ClassTeacher", (req, res) => {
   const ClassData = new ClassTeacher(req.body);
   ClassData.save(req.body)
     .then((item) => {
-      res.send("Data Saved in to Database");
+      res.status(200).send({ message: "Data Saved in to Database" });
     })
     .catch((err) => {
       res.status(400).send("unable to save in database");
@@ -41,7 +41,7 @@ routes.get("/ClassTeacher", (req, res) => {
     .limit(limit)
     .skip(skippedItems)
     .then((item) => {
-      res.send(item);
+      res.status(200).send(item);
     })
     .catch((err) => {
       res.status(400).send("Data Not found");

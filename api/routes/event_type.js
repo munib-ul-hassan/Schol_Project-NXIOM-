@@ -12,7 +12,7 @@ routes.post("/eventtype", async (req, res) => {
   eventData
     .save(req.body)
     .then((item) => {
-      res.send("event Saved in to Database");
+      res.status(200).send({ message: "event Saved in to Database" });
     })
     .catch((err) => {
       res.status(400).send("unable to save in database");
@@ -37,7 +37,7 @@ routes.delete("/eventtype", (req, res) => {
 });
 routes.get("/eventtype", (req, res) => {
   var { page, limit, skippedItems } = req.query;
-  console.log(page, limit);
+
   skippedItems = (page - 1) * limit;
 
   eventtype

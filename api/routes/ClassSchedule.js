@@ -13,10 +13,9 @@ routes.post("/ClassSchedule", (req, res) => {
   classschedule
     .save()
     .then((item) => {
-      res.send("Subject Saved in to Database");
+      res.status(200).send({ message: "Subject Saved in to Database" });
     })
     .catch((err) => {
-      console.log(err);
       res.status(400).send("unable to save in database");
     });
 });
@@ -46,7 +45,7 @@ routes.get("/ClassSchedule", (req, res) => {
     .skip(skippedItems)
 
     .then((item) => {
-      res.send(item);
+      res.status(200).send(item);
     })
     .catch((err) => {
       res.status(400).send("Data Not found");

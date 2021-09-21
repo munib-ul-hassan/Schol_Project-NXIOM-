@@ -15,6 +15,11 @@ app.use(require("./api/routes/Subject"));
 app.use(require("./api/routes/ClassAssign"));
 app.use(require("./api/routes/ClassSchedule"));
 app.use(require("./api/routes/event_type"));
+app.use(require("./api/routes/events"));
+app.use(require("./api/routes/bookCategory"));
+app.use(require("./api/routes/bookRequest"));
+
+app.use(require("./api/routes/bookList"));
 
 //Data Base connection
 mongoose.connect(
@@ -22,7 +27,7 @@ mongoose.connect(
   { useUnifiedTopology: true, useNewUrlParser: true },
   (err, result) => {
     if (err) {
-      console.log(err);
+      throw err;
     } else console.log("Database is Connected");
   }
 );
@@ -30,6 +35,6 @@ mongoose.connect(
 //Server
 app.listen(5000, (err, result) => {
   if (err) {
-    console.log(err);
+    throw err;
   } else console.log("Server is running");
 });

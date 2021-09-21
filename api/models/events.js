@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const event = mongoose.Schema({
-  Title: file,
+  Title: String,
   image: String,
   type: String,
   startdate: String,

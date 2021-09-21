@@ -3,16 +3,16 @@ const app = express();
 var mongodb = require("mongodb");
 const Mongoose = require("mongoose");
 const routes = express.Router();
-const event = require("../models/events");
-Mongoose.model("event");
+const bookCategory = require("../models/bookCategory");
+Mongoose.model("bookCategory");
 
-routes.post("/event", async (req, res) => {
-  const eventData = new event(req.body);
+routes.post("/bookCategory", async (req, res) => {
+  const bookCategoryData = new bookCategory(req.body);
 
-  eventData
+  bookCategoryData
     .save(req.body)
     .then((item) => {
-      res.status(200).send({ message: "event Saved in to Database" });
+      res.status(200).send({ message: "bookCategory Saved in to Database" });
     })
     .catch((err) => {
       res
@@ -21,28 +21,28 @@ routes.post("/event", async (req, res) => {
     });
 });
 
-routes.put("/event", (req, res) => {
-  event.updateOne({ _id: req.query.id }, req.body, (err, result) => {
+routes.put("/bookCategory", (req, res) => {
+  bookCategory.updateOne({ _id: req.query.id }, req.body, (err, result) => {
     if (err) {
       res.status(400).send(err);
     }
     res.status(200).send({ message: "Data updated" });
   });
 });
-routes.delete("/event", (req, res) => {
-  event.deleteOne({ _id: req.query.id }, (err, data) => {
+routes.delete("/bookCategory", (req, res) => {
+  bookCategory.deleteOne({ _id: req.query.id }, (err, data) => {
     if (err) {
       res.status(400).send(err);
     }
     res.status(200).send({ message: "Data deleted Successfully" });
   });
 });
-routes.get("/event", (req, res) => {
+routes.get("/bookCategory", (req, res) => {
   var { page, limit, skippedItems } = req.query;
 
   skippedItems = (page - 1) * limit;
 
-  event
+  bookCategory
     .find()
     .limit(limit)
     .skip(skippedItems)

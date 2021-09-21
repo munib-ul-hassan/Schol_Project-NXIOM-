@@ -3,13 +3,13 @@ const app = express();
 var mongodb = require("mongodb");
 const Mongoose = require("mongoose");
 const routes = express.Router();
-const Academydetails = require("../models/admission/AcademisDetails");
+const Academydetails = require("../models/AcademisDetails");
 Mongoose.model("Academydetails");
-const student = require("../models/admission/StudentDetails");
+const student = require("../models/StudentDetails");
 Mongoose.model("student");
-const parent = require("../models/admission/Parent_Schema");
+const parent = require("../models//Parent_Schema");
 Mongoose.model("parent");
-const transports = require("../models/admission/Transport");
+const transports = require("../models/Transport");
 Mongoose.model("transport");
 
 routes.post("/admission", async (req, res) => {
@@ -31,29 +31,22 @@ routes.post("/admission", async (req, res) => {
 
   Academydetails.findOne(req.body.Academy, async (err, result) => {
     if (result) {
-      console.log(typeof Student.academy);
-      console.log(Student.academy);
       Student.academy = result._id;
-      console.log(Student.academy);
     } else {
       var data = new Academydetails(req.body.Academy);
       data.save();
-      console.log(typeof Student.academy);
+
       Student.academy = data._id;
     }
   });
 
   parent.findOne(req.body.parent, async (err, result) => {
     if (result) {
-      console.log(typeof Student.parents);
-      console.log(Student.parents);
-
       Student.parents = result._id;
-      console.log(Student.parents);
     } else {
       var data = new parent(req.body.parent);
       data.save();
-      console.log(typeof Student.parents);
+
       Student.parents = data._id;
     }
   });
@@ -64,15 +57,14 @@ routes.post("/admission", async (req, res) => {
     } else {
       var transport = new transports(req.body.Transport);
       transport.save();
-      console.log(typeof Student.transport);
+
       Student.transports = transport._id;
     }
   });
 
   Student.save()
     .then((item) => {
-      console.log(item);
-      res.send("Admission Successfull");
+      res.status(200).send({ message: "Admission Successfull" });
     })
     .catch((err) => {
       res.status(400).send("unable to save in database");

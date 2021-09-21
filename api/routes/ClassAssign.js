@@ -10,7 +10,7 @@ routes.post("/ClassAssign", (req, res) => {
   const ClassAssignData = new ClassAssign(req.body);
   ClassAssignData.save(req.body)
     .then((item) => {
-      res.send("ClassAssign Saved in to Database");
+      res.status(200).send({ message: "ClassAssign Saved in to Database" });
     })
     .catch((err) => {
       res.status(400).send("unable to save in database");
@@ -42,7 +42,7 @@ routes.get("/ClassAssign", (req, res) => {
     .skip(skippedItems)
 
     .then((item) => {
-      res.send(item);
+      res.status(200).send(item);
     })
     .catch((err) => {
       res.status(400).send("Data Not found");

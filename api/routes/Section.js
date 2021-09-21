@@ -10,7 +10,7 @@ routes.post("/Section", (req, res) => {
   const SectionData = new Section(req.body);
   SectionData.save(req.body)
     .then((item) => {
-      res.send("Section Saved in to Database");
+      res.status(200).send({ message: "Section Saved in to Database" });
     })
     .catch((err) => {
       res.status(400).send("unable to save in database");
@@ -41,7 +41,7 @@ routes.get("/Section", (req, res) => {
     .limit(limit)
     .skip(skippedItems)
     .then((item) => {
-      res.send(item);
+      res.status(200).send(item);
     })
     .catch((err) => {
       res.status(400).send("Data Not found");

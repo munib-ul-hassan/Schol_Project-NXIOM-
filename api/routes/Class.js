@@ -10,7 +10,7 @@ routes.post("/Class", (req, res) => {
   const ClassData = new Class(req.body);
   ClassData.save(req.body)
     .then((item) => {
-      res.send("Data Saved in to Database");
+      res.status(200).send({ message: "Data Saved in to Database" });
     })
     .catch((err) => {
       res.status(400).send("unable to save in database");
@@ -18,7 +18,6 @@ routes.post("/Class", (req, res) => {
 });
 
 routes.put("/Class", (req, res) => {
-  console.log(req.query);
   Class.updateOne({ _id: req.query.id }, req.body, (err, result) => {
     if (err) {
       res.status(400).send(err);
@@ -43,7 +42,7 @@ routes.get("/Class", (req, res) => {
     .skip(skippedItems)
 
     .then((item) => {
-      res.send(item);
+      res.status(200).send(item);
     })
     .catch((err) => {
       res.status(400).send("Data Not found");
