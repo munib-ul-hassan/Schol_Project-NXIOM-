@@ -5,7 +5,7 @@ const Mongoose = require("mongoose");
 const routes = express.Router();
 const ClassSchedule = require("../models/ClassSchedul");
 Mongoose.model("ClassSchedule");
-var dateformat = require("dateformat");
+// var dateformat = require("dateformat");
 
 routes.post("/ClassSchedule", (req, res) => {
   const classschedule = new ClassSchedule(req.body);
