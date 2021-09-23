@@ -30,41 +30,47 @@ routes.post("/admission", async (req, res) => {
   var Student = new student(req.body.Student);
 
   Academydetails.findOne(req.body.Academy, async (err, result) => {
-    if (result) {
-      Student.academy = result._id;
-    } else {
-      var data = new Academydetails(req.body.Academy);
-      data.save();
+    console.log(result);
+    // if (result) {
+    //   Student.academy = [result._id];
+    // } else {
+    var data = new Academydetails(req.body.Academy);
+    data.save();
 
-      Student.academy = data._id;
-    }
+    Student.academy = data._id;
+    //}
   });
 
   parent.findOne(req.body.parent, async (err, result) => {
-    if (result) {
-      Student.parents = result._id;
-    } else {
-      var data = new parent(req.body.parent);
-      data.save();
+    console.log(result);
 
-      Student.parents = data._id;
-    }
+    // if (result) {
+    //   Student.parents = [result._id];
+    // } else {
+    var data = new parent(req.body.parent);
+    data.save();
+
+    Student.parents = data._id;
+    //}
   });
 
   transports.findOne(req.body.Transport, (err, result) => {
-    if (result) {
-      Student.transports = result._id;
-    } else {
-      var transport = new transports(req.body.Transport);
-      transport.save();
+    console.log(result);
 
-      Student.transports = transport._id;
-    }
+    // if (result) {
+    //   Student.transports = [result._id];
+    // } else {
+    var transport = new transports(req.body.Transport);
+    transport.save();
+
+    Student.transports = transport._id;
+    //}
   });
 
   Student.save()
     .then((item) => {
-      res.status(200).send({ message: "Admission Successfull" });
+      console.log(item);
+      res.status(200).send({ message: "Admission Successfull", data: item });
     })
     .catch((err) => {
       res.status(400).send("unable to save in database");
@@ -72,14 +78,18 @@ routes.post("/admission", async (req, res) => {
 });
 
 routes.get("/admission", (req, res) => {
-  Academydetails.findOne(req.body, (err, data) => {
-    student.find({ academy: data._id }, (err, value) => {
-      res.status(200).send(value);
-    });
+  student.find({}, (err, result) => {
+    console.log(result);
   });
+  // Academydetails.find({}, (err, data) => {
+  //   console.log(data);
+  //   student.find({ academy: data._id }, (err, value) => {
+  //     res.status(200).send(value);
+  //   });
+  // });
 });
 
-routes.patch("/admission");
+routes.put("/admission");
 
 routes.delete("/admission");
 

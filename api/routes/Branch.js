@@ -46,7 +46,7 @@ routes.get("/Branch", (req, res) => {
       res.status(400).send("Data Not found");
     });
 });
-routes.patch("/Branch", (req, res) => {
+routes.put("/Branch", (req, res) => {
   Branch.updateOne({ _id: req.query.id }, req.body, (err, data) => {
     if (err) {
       res.status(400).send(err);

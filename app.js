@@ -18,7 +18,6 @@ app.use(require("./api/routes/event_type"));
 app.use(require("./api/routes/events"));
 app.use(require("./api/routes/bookCategory"));
 app.use(require("./api/routes/bookRequest"));
-
 app.use(require("./api/routes/bookList"));
 
 //Data Base connection
