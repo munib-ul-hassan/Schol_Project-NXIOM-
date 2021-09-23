@@ -9,20 +9,21 @@ const employeeRoute = require('./api/routes/employee');
 const advance_salaryRoute = require('./api/routes/advance_salary');
 const leaveRoute = require('./api/routes/Leave_category');
 const parentRoute = require('./api/routes/Parent');
+const homeworkRoute = require('./api/routes/Homework');
 
-const branchRoute = require('./api/routes/Branch');
-const admissiontRoute = require('./api/routes/admission');
-const classRoute = require('./api/routes/Class');
-const sectionRoute = require('./api/routes/Section');
-const classTeacherRoute = require('./api/routes/ClassTeacher');
-const subjectRoute = require('./api/routes/Subject');
-const classassignRoute = require('./api/routes/ClassAssign');
-const classScheduleRoute = require('./api/routes/ClassSchedule');
-const eventTypeRoute = require('./api/routes/event_type');
-const eventsRoute = require('./api/routes/events');
-const bookCategoryRoute = require('./api/routes/bookCategory');
-const bookRequestRoute = require('./api/routes/bookRequest');
-const booklistRoute = require('./api/routes/bookList');
+// const branchRoute = require('./api/routes/Branch');
+// const admissiontRoute = require('./api/routes/admission');
+// const classRoute = require('./api/routes/Class');
+// const sectionRoute = require('./api/routes/Section');
+// const classTeacherRoute = require('./api/routes/ClassTeacher');
+// const subjectRoute = require('./api/routes/Subject');
+// const classassignRoute = require('./api/routes/ClassAssign');
+// const classScheduleRoute = require('./api/routes/ClassSchedule');
+// const eventTypeRoute = require('./api/routes/event_type');
+// const eventsRoute = require('./api/routes/events');
+// const bookCategoryRoute = require('./api/routes/bookCategory');
+// const bookRequestRoute = require('./api/routes/bookRequest');
+// const booklistRoute = require('./api/routes/bookList');
 
 
 
@@ -53,6 +54,7 @@ app.use('/employee',employeeRoute);
 app.use('/salary',advance_salaryRoute);
 app.use('/leave',leaveRoute);
 app.use('/parent',parentRoute);
+app.use('/homework',homeworkRoute);
 
 // app.use('/branch',branchRoute);
 // app.use('/admission',admissiontRoute);
