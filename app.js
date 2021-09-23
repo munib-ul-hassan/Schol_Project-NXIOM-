@@ -10,6 +10,23 @@ const advance_salaryRoute = require('./api/routes/advance_salary');
 const leaveRoute = require('./api/routes/Leave_category');
 const parentRoute = require('./api/routes/Parent');
 
+const branchRoute = require('./api/routes/Branch');
+const admissiontRoute = require('./api/routes/admission');
+const classRoute = require('./api/routes/Class');
+const sectionRoute = require('./api/routes/Section');
+const classTeacherRoute = require('./api/routes/ClassTeacher');
+const subjectRoute = require('./api/routes/Subject');
+const classassignRoute = require('./api/routes/ClassAssign');
+const classScheduleRoute = require('./api/routes/ClassSchedule');
+const eventTypeRoute = require('./api/routes/event_type');
+const eventsRoute = require('./api/routes/events');
+const bookCategoryRoute = require('./api/routes/bookCategory');
+const bookRequestRoute = require('./api/routes/bookRequest');
+const booklistRoute = require('./api/routes/bookList');
+
+
+
+
 const mongoose = require('mongoose');
 // const bodyParser = require('body-parser');
 
@@ -36,6 +53,20 @@ app.use('/employee',employeeRoute);
 app.use('/salary',advance_salaryRoute);
 app.use('/leave',leaveRoute);
 app.use('/parent',parentRoute);
+
+// app.use('/branch',branchRoute);
+// app.use('/admission',admissiontRoute);
+// app.use('/class',classRoute);
+// app.use('/section',sectionRoute);
+// app.use('/class-teacher',classTeacherRoute);
+// app.use('/subject',subjectRoute);
+// app.use('/class-assign',classassignRoute);
+// app.use('/class-schedule',classScheduleRoute);
+// app.use('/event-type',eventTypeRoute);
+// app.use('/events',eventsRoute);
+// app.use('/book-category',bookCategoryRoute);
+// app.use('/book-request',bookRequestRoute);
+// app.use('/book-list',booklistRoute);
 
 
 app.use((req,res,next)=>{

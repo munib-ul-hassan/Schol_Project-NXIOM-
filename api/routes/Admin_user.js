@@ -17,28 +17,39 @@ router.post('/signup',(req,res,next)=>{
     const {username,email,phone,password}  = req.body;
     if(!username || !email || !phone || !password)
     {
-        return res.status(200).json({
-            'status':"0",
+        return res.status(422).json({
+            'success':false,
             "data":"{}",
             "message":"Please Insert All Required Fields"
         })
     }
 
-   const checkEmail =  validateEmail(email);
 
-   if(!checkEmail)
-   {
-        return res.status(200).json({
-            'status':"0",
+
+   var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+   if (!re.test(req.body.email)) {
+
+        return res.status(422).json({
+                        'success':false,
+                        "data":"{}",
+                        "message":"invalid Email Format!"
+        });
+
+
+   } else {
+
+     var re = /^(\+\d{1,3}[- ]?)?\d{9}$/;
+     if (!re.test(req.body.phone)) {
+       return res.status(422).json({
+            'success':false,
             "data":"{}",
-            "message":"Please Insert Valid Email Id"
-        })
+            "message":"invalid Mobile Number!"
+            });
+        }
    }
 
- 
 
-    
-    bcrypt.hash(req.body.password,10,(err,hash)=>{
+ bcrypt.hash(req.body.password,10,(err,hash)=>{
         if(err)
         {
             return res.status(500).json({
@@ -48,11 +59,11 @@ router.post('/signup',(req,res,next)=>{
     
 
             // check phone exist or not
-           admin_user.findOne({$or:[{"email":email},{"phone":phone}]}).then(adminuser=>{
+           admin_user.findOne({$or:[{"email":req.body.email},{"phone":req.body.phone}]}).then(adminuser=>{
             if(adminuser)
             {
-                return res.status(200).json({
-                    'status':"0",
+                return res.status(422).json({
+                    'success':false,
                     "data":"{}",
                     "message":"Email Or Phone Number Already Exist"
                 })
@@ -71,7 +82,7 @@ router.post('/signup',(req,res,next)=>{
                     adminUser.save()
                     .then(result=>{
                         res.status(200).json({
-                            'status':"1",
+                            'success':true,
                             "data":result,
                             "message":"Register Successfully"
                         })
@@ -101,7 +112,7 @@ router.post('/login',(req,res,next)=>{
         if(user.length < 1)
         {
             return res.status(401).json({
-                'status':"0",
+                'success':false,
                 "data":"{}",
                 'message':"Invalid user"
             })
@@ -145,7 +156,7 @@ router.post('/login',(req,res,next)=>{
                 })
 
                 return res.status(200).json({
-                    'status':"1",
+                    'success':true,
                     "data":data,
                     "message":"Login  Successfully"
                 })
@@ -154,7 +165,7 @@ router.post('/login',(req,res,next)=>{
         })
     }).catch(err=>{
         res.status(500).json({
-            'status':"0",
+            'success':false,
             "data":"{}",
             "message":"sometning went wrong"
         })
@@ -393,20 +404,6 @@ router.post('/change-password',(req,res,next)=>{
 
 
 })
-
-
-
-
-function validateEmail(email) {
-    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-  }
-
-
-
-
-
-
 
 
 
