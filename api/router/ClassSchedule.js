@@ -2,12 +2,12 @@ const express = require("express");
 const app = express();
 var mongodb = require("mongodb");
 const Mongoose = require("mongoose");
-const routes = express.Router();
-const ClassSchedule = require("../models/ClassSchedul");
+const router = express.Router();
+const ClassSchedule = require("../model/ClassSchedul");
 Mongoose.model("ClassSchedule");
 // var dateformat = require("dateformat");
 
-routes.post("/ClassSchedule", (req, res) => {
+router.post("/", (req, res) => {
   const classschedule = new ClassSchedule(req.body);
 
   classschedule
@@ -20,7 +20,7 @@ routes.post("/ClassSchedule", (req, res) => {
     });
 });
 
-routes.put("/ClassSchedule", (req, res) => {
+router.put("/", (req, res) => {
   ClassSchedule.updateOne({ _id: req.query.id }, req.body, (err, result) => {
     if (err) {
       res.status(400).send(err);
@@ -28,15 +28,8 @@ routes.put("/ClassSchedule", (req, res) => {
     res.status(200).send({ message: "Data updated" });
   });
 });
-routes.delete("/ClassSchedule", (req, res) => {
-  ClassSchedule.deleteOne({ _id: req.query.id }, (err, data) => {
-    if (err) {
-      res.status(400).send(err);
-    }
-    res.status(200).send({ message: "Data deleted Successfully" });
-  });
-});
-routes.get("/ClassSchedule", (req, res) => {
+
+router.get("/", (req, res) => {
   var { page, limit, skippedItems } = req.query;
   skippedItems = (page - 1) * limit;
 
@@ -52,15 +45,7 @@ routes.get("/ClassSchedule", (req, res) => {
     });
 });
 
-routes.put("/ClassSchedule", (req, res) => {
-  ClassSchedule.updateOne({ _id: req.query.id }, req.body, (err, result) => {
-    if (err) {
-      res.status(400).send(err);
-    }
-    res.status(200).send({ message: "Data updated" });
-  });
-});
-routes.delete("/ClassSchedule", (req, res) => {
+router.delete("/", (req, res) => {
   ClassSchedule.deleteOne({ _id: req.query.id }, (err, data) => {
     if (err) {
       res.status(400).send(err);
@@ -68,4 +53,4 @@ routes.delete("/ClassSchedule", (req, res) => {
     res.status(200).send({ message: "Data deleted Successfully" });
   });
 });
-module.exports = routes;
+module.exports = router;

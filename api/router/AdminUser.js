@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 const mongoose = require("mongoose");
-const admin_user = require("../models/Admin_user");
-const bcrypt = require("bcrypt");
+const admin_user = require("../model/admin_user");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const helper = require("../../helper/helper");

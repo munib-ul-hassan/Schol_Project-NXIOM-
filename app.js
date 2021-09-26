@@ -1,34 +1,10 @@
 const express = require("express");
 const app = express();
-var mongodb = require("mongodb");
-const mongoose = require("mongoose");
-var url =
-  "mongodb+srv://hxeon_22:HXEON22@cluster0.5x5xa.mongodb.net/SCHOOL_SYSTEM?retryWrites=true&w=majority";
-
 app.use(express.json());
 
-app.use(require("./api/routes/Branch"));
-app.use(require("./api/routes/admission"));
-app.use(require("./api/routes/Class"));
-app.use(require("./api/routes/Section"));
-app.use(require("./api/routes/ClassTeacher"));
-app.use(require("./api/routes/Subject"));
-app.use(require("./api/routes/ClassAssign"));
-app.use(require("./api/routes/ClassSchedule"));
-app.use(require("./api/routes/event_type"));
-app.use(require("./api/routes/events"));
-app.use(require("./api/routes/bookCategory"));
-app.use(require("./api/routes/bookRequest"));
-app.use(require("./api/routes/bookList"));
-app.use(require("./api/routes/department"));
-app.use(require("./api/routes/designation"));
-app.use(require("./api/routes/employee"));
-app.use(require("./api/routes/advance_salary"));
-app.use(require("./api/routes/Leave_category"));
-app.use(require("./api/routes/Parent"));
-app.use(require("./api/routes/Homework"));
-app.use(require("./api/routes/admin_user"));
-app.use(require("./api/routes/payroll"));
+const mongoose = require("mongoose");
+require("dotenv").config();
+var url = process.env.MONGO_URL;
 
 //Data Base connection
 mongoose.connect(
@@ -41,9 +17,62 @@ mongoose.connect(
   }
 );
 
-//Server
-app.listen(5000, (err, result) => {
-  if (err) {
-    throw err;
-  } else console.log("Server is running");
+//require router files
+const branch = require("./api/router/Branch");
+const admission = require("./api/router/admission");
+const Class = require("./api/router/Class");
+const Section = require("./api/router/Section");
+const ClassTeacher = require("./api/router/ClassTeacher");
+const subject = require("./api/router/Subject");
+const ClassAssign = require("./api/router/ClassAssign");
+const ClassSchedule = require("./api/router/ClassSchedule");
+const Eventtype = require("./api/router/EventType");
+const events = require("./api/router/events");
+const bookCategory = require("./api/router/bookCategory");
+const bookRequest = require("./api/router/bookRequest");
+const bookList = require("./api/router/bookList");
+const Student_Accounting = require("./api/router/StudentAccounting");
+const FeesGroup = require("./api/router/FeesGroup");
+const adminUserRoute = require("./api/router/AdminUser");
+const payrollRoute = require("./api/router/payroll");
+const departmentRoute = require("./api/router/department");
+const designationRoute = require("./api/router/designation");
+const employeeRoute = require("./api/router/employee");
+const advance_salaryRoute = require("./api/router/AdvanceSalary");
+const leaveRoute = require("./api/router/LeaveCategory");
+const parentRoute = require("./api/router/Parent");
+const homeworkRoute = require("./api/router/Homework");
+
+//Routes
+app.use("/adminuser", adminUserRoute);
+app.use("/payroll", payrollRoute);
+app.use("/department", departmentRoute);
+app.use("/designation", designationRoute);
+app.use("/employee", employeeRoute);
+app.use("/salary", advance_salaryRoute);
+app.use("/leave", leaveRoute);
+app.use("/parent", parentRoute);
+app.use("/homework", homeworkRoute);
+app.use("/Branch", branch);
+app.use("/Admission", admission);
+app.use("/Class", Class);
+app.use("/Section", Section);
+app.use("/ClassTeacher", ClassTeacher);
+app.use("/Subject", subject);
+app.use("/ClassAssign", ClassAssign);
+app.use("/ClassSchedule", ClassSchedule);
+app.use("/Eventtype", Eventtype);
+app.use("/events", events);
+app.use("/bookCategory", bookCategory);
+app.use("/bookRequest", bookRequest);
+app.use("/bookList", bookList);
+app.use("/StudentAccounting", Student_Accounting);
+app.use("/FeesGroup", FeesGroup);
+
+app.use((req, res, next) => {
+  res.status(400).json({
+    error: "bad request",
+  });
 });
+
+module.exports = app;

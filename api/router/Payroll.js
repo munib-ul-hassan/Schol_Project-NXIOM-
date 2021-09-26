@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
-const Payroll = require("../models/payroll");
-const SalaryAssign = require("../models/salary_assign");
+const Payroll = require("../model/payroll");
+const SalaryAssign = require("../model/salary_assign");
 
 // create salary template
 router.post("/create-salary-template", (req, res, next) => {

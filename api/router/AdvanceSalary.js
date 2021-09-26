@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
-const AdvanceSalary = require("../models/Advance_salary");
+const AdvanceSalary = require("../model/Advance_salary");
 
-router.post("/add-advance-salary", (req, res, next) => {
+router.post("/", (req, res, next) => {
   const { branchId, roleId, employeeId, deductMonth, amount, reason } =
     req.body;
 

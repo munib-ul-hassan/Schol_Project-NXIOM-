@@ -2,11 +2,11 @@ const express = require("express");
 const app = express();
 var mongodb = require("mongodb");
 const Mongoose = require("mongoose");
-const routes = express.Router();
-const bookCategory = require("../models/bookCategory");
+const router = express.Router();
+const bookCategory = require("../model/bookCategory");
 Mongoose.model("bookCategory");
 
-routes.post("/bookCategory", async (req, res) => {
+router.post("/", async (req, res) => {
   const bookCategoryData = new bookCategory(req.body);
 
   bookCategoryData
@@ -21,7 +21,7 @@ routes.post("/bookCategory", async (req, res) => {
     });
 });
 
-routes.put("/bookCategory", (req, res) => {
+router.put("/", (req, res) => {
   bookCategory.updateOne({ _id: req.query.id }, req.body, (err, result) => {
     if (err) {
       res.status(400).send(err);
@@ -29,7 +29,7 @@ routes.put("/bookCategory", (req, res) => {
     res.status(200).send({ message: "Data updated" });
   });
 });
-routes.delete("/bookCategory", (req, res) => {
+router.delete("/", (req, res) => {
   bookCategory.deleteOne({ _id: req.query.id }, (err, data) => {
     if (err) {
       res.status(400).send(err);
@@ -37,7 +37,7 @@ routes.delete("/bookCategory", (req, res) => {
     res.status(200).send({ message: "Data deleted Successfully" });
   });
 });
-routes.get("/bookCategory", (req, res) => {
+router.get("/", (req, res) => {
   var { page, limit, skippedItems } = req.query;
 
   skippedItems = (page - 1) * limit;
@@ -54,4 +54,4 @@ routes.get("/bookCategory", (req, res) => {
     });
 });
 
-module.exports = routes;
+module.exports = router;

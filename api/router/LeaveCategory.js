@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const fs = require("fs");
-const LeaveCategory = require("../models/Leave_category");
-const Leave = require("../models/Leave");
+const LeaveCategory = require("../model/Leave_category");
+const Leave = require("../model/Leave");
 
 const helper = require("../../helper/helper");
 

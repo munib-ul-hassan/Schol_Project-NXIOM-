@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
-const Employee = require("../models/employee");
-const bcrypt = require("bcrypt");
+const Employee = require("../model/employee");
+const bcrypt = require("bcryptjs");
 const fs = require("fs");
 const mime = require("mime");
 

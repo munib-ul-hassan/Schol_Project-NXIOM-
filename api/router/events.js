@@ -2,45 +2,50 @@ const express = require("express");
 const app = express();
 var mongodb = require("mongodb");
 const Mongoose = require("mongoose");
-const routes = express.Router();
-const ClassAssign = require("../models/Class_Assign");
-Mongoose.model("ClassAssign");
+const router = express.Router();
+const event = require("../model/events");
+Mongoose.model("event");
 
-routes.post("/ClassAssign", (req, res) => {
-  const ClassAssignData = new ClassAssign(req.body);
-  ClassAssignData.save(req.body)
+router.post("/", async (req, res) => {
+  const eventData = new event(req.body);
+
+  eventData
+    .save(req.body)
     .then((item) => {
-      res.status(200).send({ message: "ClassAssign Saved in to Database" });
+      res.status(200).send({ message: "event Saved in to Database" });
     })
     .catch((err) => {
-      res.status(400).send("unable to save in database");
+      res
+        .status(400)
+        .send("unable to save in database", { message: err.message });
     });
 });
 
-routes.put("/ClassAssign", (req, res) => {
-  ClassAssign.updateOne({ _id: req.query.id }, req.body, (err, result) => {
+router.put("/", (req, res) => {
+  event.updateOne({ _id: req.query.id }, req.body, (err, result) => {
     if (err) {
       res.status(400).send(err);
     }
     res.status(200).send({ message: "Data updated" });
   });
 });
-routes.delete("/ClassAssign", (req, res) => {
-  ClassAssign.deleteOne({ _id: req.query.id }, (err, data) => {
+router.delete("/", (req, res) => {
+  event.deleteOne({ _id: req.query.id }, (err, data) => {
     if (err) {
       res.status(400).send(err);
     }
     res.status(200).send({ message: "Data deleted Successfully" });
   });
 });
-routes.get("/ClassAssign", (req, res) => {
+router.get("/", (req, res) => {
   var { page, limit, skippedItems } = req.query;
+
   skippedItems = (page - 1) * limit;
 
-  ClassAssign.find()
+  event
+    .find()
     .limit(limit)
     .skip(skippedItems)
-
     .then((item) => {
       res.status(200).send(item);
     })
@@ -49,4 +54,4 @@ routes.get("/ClassAssign", (req, res) => {
     });
 });
 
-module.exports = routes;
+module.exports = router;

@@ -2,11 +2,11 @@ const express = require("express");
 const app = express();
 var mongodb = require("mongodb");
 const Mongoose = require("mongoose");
-const routes = express.Router();
-const Branch = require("../models/Branch_Schema");
+const router = express.Router();
+const Branch = require("../model/Branch_Schema");
 Mongoose.model("Branch");
 
-routes.post("/createBranch", async (req, res) => {
+router.post("/", async (req, res) => {
   var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   if (!re.test(req.body.email)) {
     res.status(422).send("invlaid Email");
@@ -31,7 +31,7 @@ routes.post("/createBranch", async (req, res) => {
     });
 });
 
-routes.get("/Branch", (req, res) => {
+router.get("/", (req, res) => {
   var { page, limit, skippedItems } = req.query;
   skippedItems = (page - 1) * limit;
 
@@ -46,7 +46,7 @@ routes.get("/Branch", (req, res) => {
       res.status(400).send("Data Not found");
     });
 });
-routes.put("/Branch", (req, res) => {
+router.put("/", (req, res) => {
   Branch.updateOne({ _id: req.query.id }, req.body, (err, data) => {
     if (err) {
       res.status(400).send(err);
@@ -55,7 +55,7 @@ routes.put("/Branch", (req, res) => {
   });
 });
 
-routes.delete("/Branch", (req, res) => {
+router.delete("/", (req, res) => {
   Branch.deleteOne({ _id: req.query.id }, (err, data) => {
     if (err) {
       res.status(400).send(err);
@@ -63,4 +63,4 @@ routes.delete("/Branch", (req, res) => {
     res.status(200).send({ message: "Data deleted Successfully" });
   });
 });
-module.exports = routes;
+module.exports = router;

@@ -10,9 +10,9 @@ const bookList = mongoose.Schema({
   purchase_Date: String,
   price: Number,
   author: String,
-  publisher: String,
+  publlisher: String,
 
-  Total_stock: Number,
+  Tota_stock: Number,
   issued_copies: Number,
   Book_categoy: [
     {

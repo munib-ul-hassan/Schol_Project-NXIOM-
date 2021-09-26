@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
-const Parent = require("../models/parent");
+const Parent = require("../model/parent");
 const helper = require("../../helper/helper");
 
 const multer = require("multer");

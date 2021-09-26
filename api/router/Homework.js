@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
-const Homework = require("../models/Homework");
+const Homework = require("../model/Homework");
 
 router.use(express.static(__dirname + "./uploads/"));
 

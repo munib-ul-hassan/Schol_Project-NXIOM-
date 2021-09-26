@@ -2,13 +2,13 @@ const express = require("express");
 const app = express();
 var mongodb = require("mongodb");
 const Mongoose = require("mongoose");
-const routes = express.Router();
-const bookRequest = require("../models/bookRequest");
+const router = express.Router();
+const bookRequest = require("../model/bookRequest");
 Mongoose.model("bookRequest");
-const bookList = require("../models/bookList");
+const bookList = require("../model/bookList");
 Mongoose.model("bookList");
 
-routes.post("/bookRequest", async (req, res) => {
+router.post("/", async (req, res) => {
   const bookRequestData = new bookRequest(req.body);
   bookRequestData.status = "pending";
 
@@ -23,7 +23,7 @@ routes.post("/bookRequest", async (req, res) => {
     });
 });
 
-routes.put("/bookRequest", (req, res) => {
+router.put("/", (req, res) => {
   bookRequest.updateOne({ _id: req.query.id }, req.body, (err, result) => {
     if (err) {
       res.status(400).send(err);
@@ -31,7 +31,7 @@ routes.put("/bookRequest", (req, res) => {
     res.status(200).send({ message: "Data updated" });
   });
 });
-routes.delete("/bookRequest", (req, res) => {
+router.delete("/", (req, res) => {
   bookRequest.deleteOne({ _id: req.query.id }, (err, data) => {
     if (err) {
       res.status(400).send(err);
@@ -40,7 +40,7 @@ routes.delete("/bookRequest", (req, res) => {
   });
 });
 
-routes.get("/bookRequest", async (req, res) => {
+router.get("/", async (req, res) => {
   var { page, limit, skippedItems, student_id } = req.query;
   skippedItems = (page - 1) * limit;
 
@@ -61,4 +61,4 @@ routes.get("/bookRequest", async (req, res) => {
   res.json(Value);
 });
 
-module.exports = routes;
+module.exports = router;

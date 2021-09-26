@@ -1,12 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
+const Designation = require("../model/designation");
 
-const Department = require("../models/department");
-
-router.post("/add-department", (req, res, next) => {
-  const { branchId, departmentName } = req.body;
-  if (!branchId || !departmentName) {
+router.post("/add-designation", (req, res, next) => {
+  const { branchId, designationName } = req.body;
+  if (!branchId || !designationName) {
     return res.status(401).json({
       status: "0",
       data: "{}",
@@ -14,21 +13,21 @@ router.post("/add-department", (req, res, next) => {
     });
   }
 
-  Department.findOne({ departmentName: departmentName }).then((result) => {
+  Designation.findOne({ designationName: designationName }).then((result) => {
     if (result) {
       return res.status(200).json({
         status: "0",
         data: "{}",
-        message: "Department Already Exist",
+        message: "Designation Already Exist",
       });
     } else {
-      const department = new Department({
+      const designation = new Designation({
         _id: new mongoose.Types.ObjectId(),
         branchid: branchId,
-        departmentName: departmentName,
+        designationName: designationName,
       });
 
-      department
+      designation
         .save()
         .then((result) => {
           return res.status(200).json({
@@ -48,13 +47,13 @@ router.post("/add-department", (req, res, next) => {
   });
 });
 
-router.get("/department-list", (req, res, next) => {
-  Department.find()
+router.get("/designation-list", (req, res, next) => {
+  Designation.find()
     .then((result) => {
       return res.status(200).json({
         status: "1",
         data: result,
-        message: "Department List Fetch Successfully",
+        message: "Designation List Fetch Successfully",
       });
     })
     .catch((err) => {
@@ -66,7 +65,7 @@ router.get("/department-list", (req, res, next) => {
     });
 });
 
-router.get("/department-by-id/:id", (req, res, next) => {
+router.get("/designation-by-id/:id", (req, res, next) => {
   if (!req.params.id) {
     return res.status(200).json({
       status: "0",
@@ -75,12 +74,12 @@ router.get("/department-by-id/:id", (req, res, next) => {
     });
   }
 
-  Department.findOne({ _id: req.params.id })
+  Designation.findOne({ _id: req.params.id })
     .then((result) => {
       return res.status(200).json({
         status: "1",
         data: result,
-        message: "Department List Fetch Successfully",
+        message: "Designation List Fetch Successfully",
       });
     })
     .catch((err) => {
@@ -92,22 +91,23 @@ router.get("/department-by-id/:id", (req, res, next) => {
     });
 });
 
-router.put("/update-department/:id", (req, res, next) => {
-  const { branchId, departmentName } = req.body;
+router.put("/update-designation/:id", (req, res, next) => {
+  const { branchId, designationName } = req.body;
 
-  if (!branchId || !departmentName) {
+  if (!branchId || !designationName) {
     return res.status(401).json({
       status: "0",
       data: "{}",
       message: "Please Insert Required Field",
     });
   }
-  Department.findOneAndUpdate(
+
+  Designation.findOneAndUpdate(
     { _id: req.params.id },
     {
       $set: {
         branchId: branchId,
-        departmentName: departmentName,
+        designationName: designationName,
       },
     }
   )
@@ -115,7 +115,7 @@ router.put("/update-department/:id", (req, res, next) => {
       return res.status(200).json({
         status: "1",
         data: result,
-        message: "Department Updated Successfully",
+        message: "Designation Updated Successfully",
       });
     })
     .catch((err) => {
@@ -129,13 +129,13 @@ router.put("/update-department/:id", (req, res, next) => {
 
 // delete
 
-router.delete("/delete-department/:id", (req, res, next) => {
-  Department.deleteOne({ _id: req.params.id })
+router.delete("/delete-designation/:id", (req, res, next) => {
+  Designation.deleteOne({ _id: req.params.id })
     .then((result) => {
       res.status(200).json({
         status: "1",
         data: result,
-        message: "Department Delete Duccessfully",
+        message: "Designation Delete Duccessfully",
       });
     })
     .catch((err) => {
